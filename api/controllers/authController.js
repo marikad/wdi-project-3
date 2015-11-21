@@ -5,7 +5,7 @@ var User = require('../models/user');
 var secret = require('../config/config').secret;
 
 function register(req, res, next) {
-  // Local strategy
+  // Local strategy ('local-register')
 
   // create token
 
