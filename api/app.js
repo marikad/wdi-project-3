@@ -14,10 +14,8 @@ var expressJWT = require('express-jwt');
 // Require relative files
 var config = require('./config/config');
 var routes = require('./config/routes');
+var secret = require('./config/config').secret; // Set up secret used by JWT
 require('./config/passport')(passport);
-
-// Set up secret used by JWT (Change this please)
-var secret = "changeme";
 
 // Hook into mongoDB via mongoose
 mongoose.connect(config.database);
