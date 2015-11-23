@@ -8,7 +8,6 @@ module.exports = function (passport) {
     passwordField: "password",
     passReqToCallback: true,
   }, function (req, email, password, done) {
-
     // Find a user with supplied email
     User.findOne({'local.email' : email}, function (err, user) {
       if (err) return done(err, false, {message: "Something went wrong. Please try again in a few minutes."});
