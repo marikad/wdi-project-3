@@ -57,7 +57,23 @@ function login(req, res, next) {
   });
 };
 
+function gitRegister(req, res) {
+  // The request will be redirected to GitHub for authentication, so this
+  // function will not be called.
+};
+
+function gitCallback(req, res) {
+  // Successful authentication, redirect home.
+  console.log('sucessful gitHub login')
+  res.status(200).json({
+    success: true,
+    message: 'Welcome via GutHub!'
+  });
+};
+
 module.exports = {
   login: login,
-  register: register
+  register: register,
+  gitRegister: gitRegister,
+  gitCallback: gitCallback
 };
