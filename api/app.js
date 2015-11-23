@@ -41,7 +41,7 @@ app.use(methodOverride(function (req, res) {
 }));
 
 // Set app to use JWTs when called though '/api'
-app.use('/api', expressJWT({ secret: secret })
+// app.use('/api', expressJWT({ secret: secret }));
 
 // Display user friendly error when 401 occurs
 app.use(function (err, req, res, next) {
