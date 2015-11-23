@@ -2,11 +2,7 @@
 // consecutively rather than all at once. This example shows how to use
 // window.setTimeout() to space your markers' animation.
 
-var cities = [
-  {name: "london", lat: 51.507351, lng: -0.127758},
-  {name: "manchester", lat: 53.480759, lng: -2.242631},
-  {name: "birmingham", lat: 52.497, lng: 13.396}
-];
+
 
 var markers = [];
 var map;
