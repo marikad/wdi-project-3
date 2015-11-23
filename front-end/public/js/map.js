@@ -2,7 +2,6 @@
 // consecutively rather than all at once. This example shows how to use
 // window.setTimeout() to space your markers' animation.
 
-
 var markers = [];
 var map;
 var choice;
