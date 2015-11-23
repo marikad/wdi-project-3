@@ -3,8 +3,8 @@ var request = require('request');
 
 var base_url = "http://api.eventful.com/json/events/search?keywords="
 var keywords = "hackathon";
-var page     = null;
-var url      = url + keywords + "&app_key=7J9d96cGpbJWRxZV";
+// var page     = null;
+var url      = base_url + keywords + "&app_key=7J9d96cGpbJWRxZV";
 
 request(url, function (err, res, body) {
   if (err) return console.log(err);
@@ -13,7 +13,7 @@ request(url, function (err, res, body) {
 
     console.log(data)
 
-    var events = data.events;
+    var events = data.events.event;
     
     for (i in events) {
       if (events[i].country_name == 'United Kingdom') {
