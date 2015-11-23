@@ -16,14 +16,15 @@ module.exports = function (passport) {
 
       // If no existing user, create the account
       var newUser = new User();
-      newUser.local.email    = email;
+      newUser.local.email = email;
+      newUser.local.city = req.body.city;
       newUser.local.password = User.encrypt(password);
       newUser.save(function (err, user) {
 
-        // Error found
-        if (err) return done(err, false, {message: "Something went wrong. Please try again in a few minutes"});
+      // Error found
+      if (err) return done(err, false, {message: "Something went wrong. Please try again in a few minutes"});
 
-        return done(null, user);
+      return done(null, user);
       });
     });
   }));

@@ -1,6 +1,9 @@
 // Require packages
 var express = require('express');
-var passport = require("passport");
+var passport = require('passport');
+
+// Require controllers
+var authController = require('../controllers/authController')
 
 // Establish 'router'
 var router = express.Router();
