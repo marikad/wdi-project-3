@@ -4,7 +4,7 @@ var passport = require('passport');
 
 // Require controllers
 var authController = require('../controllers/authController')
-var eventfulController = require('../controllers/eventfulController');
+// var eventfulController = require('../controllers/eventfulController');
 
 // Establish 'router'
 var router = express.Router();
@@ -16,6 +16,6 @@ router.get('/auth/github', passport.authenticate('github', { scope: [ 'user:emai
 router.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), authController.gitCallback);
 
 // Seed routes
-router.get('/seed-hackathon', eventfulController.hackathon);
+// router.get('/seed-hackathon', eventfulController.hackathon);
 
 module.exports = router;

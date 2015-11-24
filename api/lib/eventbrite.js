@@ -2,12 +2,12 @@ var Event = require('../models/event')
 var request = require('request');
 
 
-var token = process.env.PERSONAL_OAUTH_TOKEN;
-var base_url = "https://www.eventbriteapi.com/v3/events/search/?token="
+// var token = process.env.PERSONAL_OAUTH_TOKEN;
+// var base_url = "https://www.eventbriteapi.com/v3/events/search/?token="
 // var keywords = "hackathon";
 // var url      = "&q=";
-var url      = base_url + token + "&q=hackathon";
-// var url      = "https://www.eventbriteapi.com/v3/events/search/?token=NCAH3ZPTXEHOERFOORZJ&q=hackathon";
+// var url      = base_url + token + "&q=hackathon";
+var url      = "https://www.eventbriteapi.com/v3/events/search/?token=NCAH3ZPTXEHOERFOORZJ&q=hackathon";
 
 request(url, function (err, res, body) {
   if (err) return console.log(err);
