@@ -22,12 +22,14 @@
                   <li class="active landing-link"><a href="./landing.html">Landing</a></li>
                   <li><a href="./main.html">Main</a></li>
                   <li><a href="#" class="login-link">Login</a></li>
+                  <li><a href="#" class="logout-link">Logout</a></li>
                 </ul>
               </nav>
             </div>
           </div>
 
           <section id="splash">
+            <div class="hide alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
             <div class="inner cover">
               <img src="../public/assets/logo-full-width-white-on-trans.png" class="img-responsive">
               <p class="lead">HackJammer allows developers to quickly find community events such as <strong>hackathons</strong> and <strong>meetups</strong> in thier area.</em></p>
@@ -38,7 +40,7 @@
           </section>
 
           <section id="login-register">
-            <div class="hide alert alert-danger alert-dismissible" role="alert"></div>
+            <div class="hide alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
             <div class="inner cover">
 
               <ul class="nav nav-tabs nav-justified">
@@ -47,6 +49,7 @@
               </ul>
 
               <section id="login">
+                <br>
                 <p class="lead">Login</p>
                 <form class="login" method="post" action="/login">
                   <div class="form-group">
@@ -66,6 +69,7 @@
               </section>
 
               <section id="register">
+                <br>
                 <p class="lead">Register</p>
                 <form class="register" method="post" action="/register">
                   <div class="form-group">
@@ -76,22 +80,20 @@
                     <label for="register-password">Password</label>
                     <input type="password" name="password" id="register-password" class="form-control" placeholder="Password">
                   </div>
+                  <div class="form-group">
+                    <label for="register-city">City</label>
+                    <input type="city" name="city" id="register-city" class="form-control" placeholder="Home City">
+                  </div>
                   <button type="submit" class="btn btn-default">Submit</button>
                 </form>
                 <hr>
                 <form class="login" method="post" action="/auth/github">
-                  <button type="submit" class="btn btn-default">Register via GitHub</button>
+                  <button type="submit" class="btn btn-default">Login via GitHub</button>
                 </form>
               </section>
 
             </div>
           </section>
-
-          <div class="mastfoot">
-            <div class="inner">
-              <p>Design by <a href="https://twitter.com/mdo">@mdo</a>.</p>
-            </div>
-          </div>
 
         </div>
       </div>

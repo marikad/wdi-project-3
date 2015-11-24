@@ -1,10 +1,9 @@
 $(start);
 
 function start(){
-
-	$("form").on("submit", submitForm)
-	$("section").hide();
-	$("#splash").show();
+	$("form").on("submit", submitForm);
+	$("landing-link").on("click", splashView);
+	$(".logout-link").on("click", logout);
 
 	$(".login-link").on("click", function(){
 		$("#splash").hide();
@@ -22,19 +21,37 @@ function start(){
 		$("#register").show();
 	});
 
-	$("landing-link").on("click", function(){
-		$("section").hide();
-		$("#splash").show();
-	});
+	splashView();
+	checkLoginState();
+};
+
+function splashView(){
+	$("section").hide();
+	$("#splash").show();
 };
 
 function checkLoginState(){
 	if (getToken()){
+		$(".login-link").hide();
+		$(".logout-link").show();
 		return console.log('User logged in!');
 	} else {
+		$(".login-link").show();
+		$(".logout-link").hide();
 		return console.log('User logged out');
 	};
 };
+
+function logout() {
+  event.preventDefault();
+	$(".alert-success").text('Logged out successfully').removeClass("hide").addClass("show");
+  removeToken();
+  return checkLoginState();
+}
+
+function removeToken() {
+  return localStorage.clear();
+}
 
 function getToken(){
 	return localStorage.getItem("token");
@@ -53,7 +70,11 @@ function submitForm(){
 };
 
 function authenticationSuccessful(data){
-	if(data.token) setToken(data.token);
+	if (data.token) {
+		setToken(data.token);
+		$(".alert-success").text(data.message).removeClass("hide").addClass("show");
+		splashView();
+	}
 	return checkLoginState();
 };
 
@@ -76,5 +97,5 @@ function setRequestHeader(xhr, settings){
 };
 
 function displayErrors(data){
-	return $(".alert").text(data).removeClass("hide").addClass("show");
+	return $(".alert-danger").text(data).removeClass("hide").addClass("show");
 };
