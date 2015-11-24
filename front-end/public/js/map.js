@@ -27,7 +27,7 @@ function initMap() {
 
 
    var pos = cityLoc
-   placeMarker(pos);
+   placeMarker();
    autoComplete();
 
    var geocoder = new google.maps.Geocoder();
@@ -87,6 +87,7 @@ function autoComplete(){
 
 
 }
+
 function placeMarker(pos){
   var marker = new google.maps.Marker({
     position: pos,
