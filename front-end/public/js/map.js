@@ -29,6 +29,7 @@ function initMap() {
    var pos = cityLoc
    placeMarker();
    autoComplete();
+   styleMap();
 
    var geocoder = new google.maps.Geocoder();
 
@@ -37,17 +38,195 @@ function initMap() {
        geocodeAddress(geocoder, map);
      });
 
-     // google.maps.event.addListener (marker, 'dragend', function (event) 
-     // {
-     //     var point = marker.getPosition();
-     //     map.panTo(point);
+     var infowindow = new google.maps.InfoWindow({
+       content: contentString
+     });
 
-     //     // save location to local storage
-     //     localStorage['lastLat'] = point.lat();
-     //     localStorage['lastLng'] = point.lng();
-     // });
+ marker.addListener('click', function() {
+    infowindow.open(map, marker);
+  });
 
+}
 
+function styleMap(){
+  var customMapType = new google.maps.StyledMapType([
+     {
+             "featureType": "all",
+             "elementType": "labels.text.fill",
+             "stylers": [
+                 {
+                     "saturation": 36
+                 },
+                 {
+                     "color": "#000000"
+                 },
+                 {
+                     "lightness": 40
+                 }
+             ]
+         },
+   {
+          "featureType": "all",
+          "elementType": "labels.text.stroke",
+          "stylers": [
+              {
+                  "visibility": "on"
+              },
+              {
+                  "color": "#000000"
+              },
+              {
+                  "lightness": 16
+              }
+          ]
+      },
+    {
+           "featureType": "all",
+           "elementType": "labels.icon",
+           "stylers": [
+               {
+                   "visibility": "off"
+               }
+           ]
+       },
+
+      {
+             "featureType": "administrative",
+             "elementType": "geometry.fill",
+             "stylers": [
+                 {
+                     "color": "#000000"
+                 },
+                 {
+                     "lightness": 20
+                 }
+             ]
+         },
+
+         {
+               "featureType": "administrative",
+               "elementType": "geometry.stroke",
+               "stylers": [
+                   {
+                       "color": "#000000"
+                   },
+                   {
+                       "lightness": 17
+                   },
+                   {
+                       "weight": 1.2
+                   }
+               ]
+           },
+
+            {
+                 "featureType": "landscape",
+                 "elementType": "geometry",
+                 "stylers": [
+                     {
+                         "color": "#000000"
+                     },
+                     {
+                         "lightness": 20
+                     }
+                 ]
+             },
+              {
+                      "featureType": "poi",
+                      "elementType": "geometry",
+                      "stylers": [
+                          {
+                              "color": "#000000"
+                          },
+                          {
+                              "lightness": 21
+                          }
+                      ]
+                  },
+
+              {
+                      "featureType": "road.highway",
+                      "elementType": "geometry.fill",
+                      "stylers": [
+                          {
+                              "color": "#000000"
+                          },
+                          {
+                              "lightness": 17
+                          }
+                      ]
+                  },
+                  {
+                          "featureType": "road.highway",
+                          "elementType": "geometry.stroke",
+                          "stylers": [
+                              {
+                                  "color": "#000000"
+                              },
+                              {
+                                  "lightness": 29
+                              },
+                              {
+                                  "weight": 0.2
+                              }
+                          ]
+                      },
+                      {
+                             "featureType": "road.arterial",
+                             "elementType": "geometry",
+                             "stylers": [
+                                 {
+                                     "color": "#000000"
+                                 },
+                                 {
+                                     "lightness": 18
+                                 }
+                             ]
+                         },
+                         {
+                               "featureType": "road.local",
+                               "elementType": "geometry",
+                               "stylers": [
+                                   {
+                                       "color": "#000000"
+                                   },
+                                   {
+                                       "lightness": 16
+                                   }
+                               ]
+                           },
+                           {
+                                 "featureType": "transit",
+                                 "elementType": "geometry",
+                                 "stylers": [
+                                     {
+                                         "color": "#000000"
+                                     },
+                                     {
+                                         "lightness": 19
+                                     }
+                                 ]
+                             },
+                             {
+                                     "featureType": "water",
+                                     "elementType": "geometry",
+                                     "stylers": [
+                                         {
+                                             "color": "#000000"
+                                         },
+                                         {
+                                             "lightness": 17
+                                         }
+                                     ]
+                                 }
+
+    ], {
+      name: 'Custom Style'
+  });
+  var customMapTypeId = 'custom_style';
+
+  map.mapTypes.set(customMapTypeId, customMapType);
+  map.setMapTypeId(customMapTypeId);
 }
 
 function geocodeAddress(geocoder, resultsMap) {
