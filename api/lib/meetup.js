@@ -1,5 +1,9 @@
 var Event = require('../models/event')
 var request = require('request');
+var config = require('../config/config');
+
+var mongoose = require("mongoose");
+mongoose.connect(config.database);
 
 // var base_url = ""
 // var keywords = "hackathon";
