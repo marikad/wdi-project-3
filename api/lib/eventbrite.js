@@ -7,11 +7,9 @@ mongoose.connect(config.database);
 
 
 var token = process.env.EVENTBRITE_PERSONAL_OAUTH_TOKEN;
-// var base_url = "https://www.eventbriteapi.com/v3/events/search/?token="
+var base_url = "https://www.eventbriteapi.com/v3/events/search/?token="
 // var keywords = "hackathon";
-// var url      = "&q=";
-// var url      = base_url + token + "&q=hackathon";
-var url      = "https://www.eventbriteapi.com/v3/events/search/?token=" + token + "&q=hackathon";
+var url      = base_url + token + "&q=hackathon";
 
 request(url, function (err, res, body) {
   if (err) return console.log(err);
