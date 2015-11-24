@@ -5,10 +5,10 @@ var config = require('../config/config');
 var mongoose = require("mongoose");
 mongoose.connect(config.database);
 
+var token = process.env.EVENTFUL_API_KEY;
 var base_url = "http://api.eventful.com/json/events/search?keywords="
 var keywords = "hackathon";
-// var page     = null;
-var url      = base_url + keywords + "&app_key=7J9d96cGpbJWRxZV";
+var url      = base_url + keywords + "&app_key=" + token;
 
 request(url, function (err, res, body) {
   if (err) return console.log(err);

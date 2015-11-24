@@ -5,12 +5,8 @@ var config = require('../config/config');
 var mongoose = require("mongoose");
 mongoose.connect(config.database);
 
-// var base_url = ""
-// var keywords = "hackathon";
-// var page     = null;
-// var url      = "https://api.meetup.com/topics.json/?search=hackathon&key=4e363d1c2fe5b244a57654069e65d";
-var url      = "https://api.meetup.com/topics/?search=hackathon&key=4e363d1c2fe5b244a57654069e65d";
-// var url      = "http://api.eventful.com/json/events/search?keywords=hackathon&app_key=7J9d96cGpbJWRxZV";
+var token = process.env.MEETUP_API_KEY
+var url      = "https://api.meetup.com/topics/?search=hackathon&key=" + token;
 
 request(url, function (err, res, body) {
   if (err) return console.log(err);
