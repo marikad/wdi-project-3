@@ -10,21 +10,24 @@ $("#city-form").on("click", function() {
   var city = $("#city-search").val();
 });
 
-function seedPins() {
-  var geocoder = new google.maps.Geocoder();
-
+function getEvents() {
   $.ajax({
     method: 'GET',
     url: 'http://localhost:3000/api/events'
   }).done(function(data) {
-    console.log(data)
-    // for (i in events) {
-    //   var address = events[i].address;
-    //   geocodeAddress(address, geocoder);
-    // };
+    return seedPins(data);
   }).fail(function(data){
-    console.log(data);
+    console.log('Could not get events.');
   });
+}
+
+function seedPins(data) {
+  var geocoder = new google.maps.Geocoder();
+  $.each(data.events, function(index, event) {
+    var address = event.location;
+    geocodeAddress(address, geocoder);
+  });
+
 };
 
 function initMap() {
@@ -41,6 +44,7 @@ function initMap() {
    placeMarker();
    autoComplete();
    styleMap();
+   getEvents();
 
    var geocoder = new google.maps.Geocoder();
 
