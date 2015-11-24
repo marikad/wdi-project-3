@@ -12,7 +12,7 @@ var router = express.Router();
 // Authentication routes
 router.post('/login', authController.login);
 router.post('/register', authController.register);
-router.get('/auth/github', passport.authenticate('github', { scope: [ 'user:email' ] }), authController.gitRegister);
+router.post('/auth/github', passport.authenticate('github', { scope: [ 'user:email' ] }), authController.gitRegister);
 router.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), authController.gitCallback);
 
 // Seed routes
