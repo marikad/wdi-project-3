@@ -3,6 +3,8 @@
 
 var markers = [];
 var map;
+var bounds;
+var infoBox;
 var city = 'London';
 var cityLoc = {lat: 51.507351, lng: -0.127758};
 
@@ -19,13 +21,54 @@ function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
     center: cityLoc,
-    disableDefaultUI: true
+    disableDefaultUI: true,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
   });
 
 
    var pos = cityLoc
    placeMarker(pos);
    autoComplete();
+
+   var geocoder = new google.maps.Geocoder();
+
+     document.getElementById('submit').addEventListener('click', function() {
+      event.preventDefault();
+       geocodeAddress(geocoder, map);
+     });
+
+     // google.maps.event.addListener (marker, 'dragend', function (event) 
+     // {
+     //     var point = marker.getPosition();
+     //     map.panTo(point);
+
+     //     // save location to local storage
+     //     localStorage['lastLat'] = point.lat();
+     //     localStorage['lastLng'] = point.lng();
+     // });
+
+
+}
+
+function geocodeAddress(geocoder, resultsMap) {
+  var address = document.getElementById('address').value;
+  geocoder.geocode({'address': address}, function(results, status) {
+    for (i = 0; i < address.length; i++) {
+      address.save
+    }
+    if (status === google.maps.GeocoderStatus.OK) {
+      var latLngObj = results[0]["geometry"]["location"];
+         console.log(latLngObj);
+      resultsMap.setCenter(results[0].geometry.location);
+      var marker = new google.maps.Marker({
+        map: map,
+        position: latLngObj
+      });
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+  });
+
 }
 
 function autoComplete(){
@@ -44,11 +87,6 @@ function autoComplete(){
 
 
 }
-
-
-
-
-
 function placeMarker(pos){
   var marker = new google.maps.Marker({
     position: pos,
