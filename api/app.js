@@ -45,7 +45,10 @@ app.use('/api', expressJWT({ secret: secret })
   .unless({
     path: [
       { url: '/api/register', methods: ['POST'] },
-      { url: '/api/login', methods: ['POST'] }
+      { url: '/api/login', methods: ['POST'] },
+      { url: '/api/auth/github', methods: ['POST'] },
+      { url: '/api/auth/github/callback', methods: ['GET'] },
+      { url: '/api/events', methods: ['GET'] }
     ]
   }));
 
