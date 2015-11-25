@@ -19,7 +19,7 @@ function getEvents() {
   }).fail(function(data){
     console.log('Could not get events.');
   });
-}
+};
 
 function seedPins(data) {
   var geocoder = new google.maps.Geocoder();
@@ -27,7 +27,38 @@ function seedPins(data) {
     var address = event.location;
     geocodeAddress(address, geocoder);
   });
+};
 
+function ToggleMenu(menuToggleDiv, map) {
+
+  // Set CSS for the control border.
+  var controlUI = document.createElement('div');
+  controlUI.style.backgroundColor = 'rgba(255,255,255,.1)';
+  controlUI.style.border = '2px solid rgba(0,0,0,.7)';
+  controlUI.style.borderRadius = '3px';
+  controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+  controlUI.style.cursor = 'pointer';
+  controlUI.style.textAlign = 'center';
+  controlUI.title = 'Click to toggle the menu';
+  menuToggleDiv.appendChild(controlUI);
+
+  // Set CSS for the control interior.
+  var controlText = document.createElement('div');
+  controlText.style.color = 'rgba(255,255,255, 0.7)';
+  controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+  controlText.style.fontSize = '16px';
+  controlText.style.lineHeight = '38px';
+  controlText.style.paddingLeft = '5px';
+  controlText.style.paddingRight = '5px';
+  controlText.innerHTML = 'Toggle Menu';
+  controlUI.appendChild(controlText);
+
+  // Setup the click event listener
+  controlUI.addEventListener('click', function() {
+    console.log('clicked')
+    event.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+  });
 };
 
 function initMap() {
@@ -38,28 +69,30 @@ function initMap() {
     disableDefaultUI: true,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   });
+  var menuToggleDiv = document.createElement('div');
+  var menuControl = new ToggleMenu(menuToggleDiv, map);
 
-   var pos = cityLoc;
+  menuToggleDiv.index = 1;
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(menuToggleDiv);
 
-   placeMarker();
-   autoComplete();
-   styleMap();
-   getEvents();
+  var pos = cityLoc;
 
-   var geocoder = new google.maps.Geocoder();
+  placeMarker();
+  autoComplete();
+  styleMap();
+  getEvents();
 
-   document.getElementById('submit').addEventListener('click', function() {
-    event.preventDefault();
-    var address = document.getElementById('address').value;
-     geocodeAddress(address, geocoder, map);
-   });
+  var geocoder = new google.maps.Geocoder();
+
+  document.getElementById('submit').addEventListener('click', function() {
+  event.preventDefault();
+  var address = document.getElementById('address').value;
+   geocodeAddress(address, geocoder, map);
+  });
 };
 
 function geocodeAddress(address, geocoder) {
   geocoder.geocode({'address': address}, function(results, status) {
-    for (i = 0; i < address.length; i++) {
-      address.save
-    }
     if (status === google.maps.GeocoderStatus.OK) {
       var latLngObj = results[0]["geometry"]["location"];
          console.log(latLngObj);
@@ -72,11 +105,39 @@ function geocodeAddress(address, geocoder) {
   });
 };
 
+
 function placeMarker(pos){
   var marker = new google.maps.Marker({
     position: pos,
     map: map,
   });
+  var contentString = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
+      '<div id="bodyContent">'+
+      '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+      'sandstone rock formation in the southern part of the '+
+      'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
+      'south west of the nearest large town, Alice Springs; 450&#160;km '+
+      '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
+      'features of the Uluru - Kata Tjuta National Park. Uluru is '+
+      'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
+      'Aboriginal people of the area. It has many springs, waterholes, '+
+      'rock caves and ancient paintings. Uluru is listed as a World '+
+      'Heritage Site.</p>'+
+      '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+      'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+      '(last visited June 22, 2009).</p>'+
+      '</div>'+
+      '</div>';
+
+  var infowindow = new google.maps.InfoWindow({
+    content: contentString
+  });
+  marker.addListener('click', function() {
+     infowindow.open(map, marker);
+   });
 };
 
 function autoComplete(){
@@ -274,28 +335,3 @@ function styleMap(){
   map.mapTypes.set(customMapTypeId, customMapType);
   map.setMapTypeId(customMapTypeId);
 };
-
-
-// function drop() {
-//   clearMarkers();
-//   for (var i = 0; i < autoComplete.length; i++) {
-//     addMarkerWithTimeout(autoComplete[i], i * 200);
-//   }
-// }
-
-// function addMarkerWithTimeout(position, timeout) {
-//   window.setTimeout(function() {
-//     markers.push(new google.maps.Marker({
-//       position: cityLoc,
-//       map: map,
-//       animation: google.maps.Animation.DROP
-//     }));
-//   }, timeout);
-// }
-
-// function clearMarkers() {
-//   for (var i = 0; i < markers.length; i++) {
-//     markers[i].setMap(null);
-//   }
-//   markers = [];
-// }
