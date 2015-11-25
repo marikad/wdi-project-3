@@ -341,4 +341,3 @@ function styleMap(){
   map.mapTypes.set(customMapTypeId, customMapType);
   map.setMapTypeId(customMapTypeId);
 };
-
