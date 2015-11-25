@@ -8,6 +8,15 @@ function allEvents(req, res) {
    });
 };
 
+function newEvent(req,res) {
+  var event = new Event(req.body);
+
+  event.save(function (err) {
+    if (err) return res.status(500).json({message: "Error saving new event."})
+    res.status(201).json({event: event});
+  });
+};
+
 module.exports = {
   allEvents: allEvents
 };
