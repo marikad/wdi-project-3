@@ -64,7 +64,7 @@ function ToggleMenu(menuToggleDiv, map) {
 function initMap() {
   console.log(cityLoc)
   map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 12,
+    zoom: 10,
     center: cityLoc,
     disableDefaultUI: true,
     mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -77,7 +77,6 @@ function initMap() {
 
   var pos = cityLoc;
 
-  placeMarker();
   autoComplete();
   styleMap();
   getEvents();
@@ -85,20 +84,23 @@ function initMap() {
   var geocoder = new google.maps.Geocoder();
 
   document.getElementById('event-submit').addEventListener('click', function() {
-  event.preventDefault();
-  var address = document.getElementById('event-location').value;
-   geocodeAddress(address, geocoder, map);
+    event.preventDefault();
+    var eventObj = {
+      title: document.getElementById('event-title').value,
+      description: document.getElementById('event-description').value,
+      location: document.getElementById('event-location').value,
+      date: document.getElementById('event-date').value,
+      time: document.getElementById('event-time').value
+    };
+     geocodeAddress(eventObj, geocoder);
   });
 };
 
-function geocodeAddress(address, geocoder) {
-  geocoder.geocode({'address': address}, function(results, status) {
+function geocodeAddress(eventObj, geocoder) {
+  geocoder.geocode({'address': eventObj.location}, function(results, status) {
     if (status === google.maps.GeocoderStatus.OK) {
       var latLngObj = results[0]["geometry"]["location"];
-         console.log(latLngObj);
-
-      placeMarker(latLngObj);
-
+      placeMarker(latLngObj, eventObj);
     } else {
       alert('Geocode was not successful for the following reason: ' + status);
     };
@@ -106,7 +108,7 @@ function geocodeAddress(address, geocoder) {
 };
 
 
-function placeMarker(pos){
+function placeMarker(pos, eventObj){
   var marker = new google.maps.Marker({
     position: pos,
     map: map,
@@ -114,21 +116,11 @@ function placeMarker(pos){
   var contentString = '<div id="content">'+
       '<div id="siteNotice">'+
       '</div>'+
-      '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
+      '<h1 id="firstHeading" class="firstHeading">' + eventObj.title + '</h1>'+
       '<div id="bodyContent">'+
-      '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-      'sandstone rock formation in the southern part of the '+
-      'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
-      'south west of the nearest large town, Alice Springs; 450&#160;km '+
-      '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
-      'features of the Uluru - Kata Tjuta National Park. Uluru is '+
-      'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
-      'Aboriginal people of the area. It has many springs, waterholes, '+
-      'rock caves and ancient paintings. Uluru is listed as a World '+
-      'Heritage Site.</p>'+
-      '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-      'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-      '(last visited June 22, 2009).</p>'+
+      '<p>' + eventObj.description + '</p>'+
+      '<p><strong>Date:</strong> ' + eventObj.date + '</p>'+
+      '<p><strong>Start Time:</strong> ' + eventObj.time + '</p>'+
       '</div>'+
       '</div>';
 
@@ -150,7 +142,7 @@ function autoComplete(){
     var place = autoComplete.getPlace();
     if (place.geometry) {
        map.panTo(place.geometry.location);
-       map.setZoom(15);
+       map.setZoom(11);
     };
   });
 };
