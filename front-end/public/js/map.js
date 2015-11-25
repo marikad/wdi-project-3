@@ -84,9 +84,9 @@ function initMap() {
 
   var geocoder = new google.maps.Geocoder();
 
-  document.getElementById('submit').addEventListener('click', function() {
+  document.getElementById('event-submit').addEventListener('click', function() {
   event.preventDefault();
-  var address = document.getElementById('address').value;
+  var address = document.getElementById('event-location').value;
    geocodeAddress(address, geocoder, map);
   });
 };
