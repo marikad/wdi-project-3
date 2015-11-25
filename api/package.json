@@ -21,6 +21,7 @@
     "url": "https://github.com/webdev11/wdi-project-3/issues"
   },
   "dependencies": {
+    "async": "^1.5.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.14.1",
     "cookie-parser": "^1.4.0",

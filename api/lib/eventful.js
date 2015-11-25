@@ -1,3 +1,4 @@
+var async = require('async');
 var Event     = require('../models/event');
 var request   = require('request');
 var config    = require('../config/config');
@@ -17,19 +18,15 @@ for (var j = 0; j < keywords.length; j++) {
   };
 };
 
-for (var k = 0; k < urls.length-1; k++) {
-
-  // BUG: Request does not act on each loop, instead it waits for the for loop to complete every iteration, and then executes urls.length - 1 times the last entry in urls.
-
-  // http://stackoverflow.com/questions/24710989/how-do-i-make-http-requests-inside-a-loop-in-nodejs
-
-  request(urls[k], function (err, res, body) {
-    console.log('Now requesting ' + urls[k]);
+var q = async.queue(function (task, done) {
+  request(task.url, function(err, res, body) {
+    // console.log('Now requesting ' + task.url);
     if (err) return console.log(err);
     if (res.statusCode == 200) {
       var data = JSON.parse(body)
       var events = data.events.event;
-      // var category = urls[n].split("keywords=");
+      var keywordPartial = task.url.split("keywords=");
+      var keyword = keywordPartial[1].split("&");
 
       for (n in events) {
         if (events[n].country_name == 'United Kingdom') {
@@ -41,14 +38,23 @@ for (var k = 0; k < urls.length-1; k++) {
           newEvent.description = events[n].description;
           newEvent.location = (events[n].venue_address + ", " + events[n].city_name);
           newEvent.date = events[n].start_time;
-          // newEvent.category = ;
+          newEvent.category = keyword[0];
 
           newEvent.save(function (err, event) {
             if (err) return res.status(500).json(err);
-            // console.log(newEvent.title + " saved.");
+            console.log(newEvent.title + " saved. keywords was: " + newEvent.category);
           });
         };
       };
     };
   });
+}, urls.length);
+
+for (var k = 0; k < urls.length; k++) {
+  q.push({ url: urls[k]});
 };
+
+// BUG: Request does not act on each loop, instead it waits for the for loop to complete every iteration, and then executes urls.length - 1 times the last entry in urls.
+
+// http://stackoverflow.com/questions/24710989/how-do-i-make-http-requests-inside-a-loop-in-nodejs
+
