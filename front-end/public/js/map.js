@@ -57,9 +57,6 @@ function initMap() {
 
 function geocodeAddress(address, geocoder) {
   geocoder.geocode({'address': address}, function(results, status) {
-    for (i = 0; i < address.length; i++) {
-      address.save
-    }
     if (status === google.maps.GeocoderStatus.OK) {
       var latLngObj = results[0]["geometry"]["location"];
          console.log(latLngObj);
@@ -71,6 +68,7 @@ function geocodeAddress(address, geocoder) {
     };
   });
 };
+
 
 function placeMarker(pos){
   var marker = new google.maps.Marker({
@@ -275,27 +273,3 @@ function styleMap(){
   map.setMapTypeId(customMapTypeId);
 };
 
-
-// function drop() {
-//   clearMarkers();
-//   for (var i = 0; i < autoComplete.length; i++) {
-//     addMarkerWithTimeout(autoComplete[i], i * 200);
-//   }
-// }
-
-// function addMarkerWithTimeout(position, timeout) {
-//   window.setTimeout(function() {
-//     markers.push(new google.maps.Marker({
-//       position: cityLoc,
-//       map: map,
-//       animation: google.maps.Animation.DROP
-//     }));
-//   }, timeout);
-// }
-
-// function clearMarkers() {
-//   for (var i = 0; i < markers.length; i++) {
-//     markers[i].setMap(null);
-//   }
-//   markers = [];
-// }
