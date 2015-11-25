@@ -24,8 +24,8 @@ function getEvents() {
 function seedPins(data) {
   var geocoder = new google.maps.Geocoder();
   $.each(data.events, function(index, event) {
-    var address = event.location;
-    geocodeAddress(address, geocoder);
+    console.log(event)
+    geocodeAddress(event, geocoder);
   });
 };
 
@@ -92,7 +92,18 @@ function initMap() {
       date: document.getElementById('event-date').value,
       time: document.getElementById('event-time').value
     };
-     geocodeAddress(eventObj, geocoder);
+      geocodeAddress(eventObj, geocoder);
+
+      $.ajax({
+    		method: 'post',
+    		url: 'http://localhost:3000/api/events/new',
+    		data: eventObj,
+    		beforeSend: setRequestHeader,
+    	}).done(function(data) {
+    		return console.log('New event added to database!');
+    	}).fail(function(data){
+    		displayErrors(data.responseJSON.message);
+    	});
   });
 };
 
@@ -148,9 +159,6 @@ function placeMarker(pos, eventObj){
        infoWindow.close();
    });
 };
-
-
-
 
 function autoComplete(){
   var autoComplete = new google.maps.places.Autocomplete(

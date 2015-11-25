@@ -5,7 +5,8 @@ var eventSchema = new mongoose.Schema({
   city: String,
   description: String,
   location: String,
-  date: String
+  date: String,
+  category: String
 });
 
 module.exports = mongoose.model("Event", eventSchema);
