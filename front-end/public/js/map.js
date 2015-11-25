@@ -10,6 +10,12 @@ $("#city-form").on("click", function() {
   var city = $("#city-search").val();
 });
 
+$(".hide-menu-link").on("click", function() {
+  event.preventDefault();
+  console.log('clicked')
+  $("#wrapper").toggleClass("toggled");
+});
+
 function getEvents() {
   $.ajax({
     method: 'GET',
@@ -19,7 +25,7 @@ function getEvents() {
   }).fail(function(data){
     console.log('Could not get events.');
   });
-}
+};
 
 function seedPins(data) {
   var geocoder = new google.maps.Geocoder();
@@ -27,7 +33,38 @@ function seedPins(data) {
     var address = event.location;
     geocodeAddress(address, geocoder);
   });
+};
 
+function ToggleMenu(menuToggleDiv, map) {
+
+  // Set CSS for the control border.
+  var controlUI = document.createElement('div');
+  controlUI.style.backgroundColor = 'rgba(255,255,255,.1)';
+  controlUI.style.border = '2px solid rgba(0,0,0,.7)';
+  controlUI.style.borderRadius = '3px';
+  controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+  controlUI.style.cursor = 'pointer';
+  controlUI.style.textAlign = 'center';
+  controlUI.title = 'Click to toggle the menu';
+  menuToggleDiv.appendChild(controlUI);
+
+  // Set CSS for the control interior.
+  var controlText = document.createElement('div');
+  controlText.style.color = 'rgba(255,255,255, 0.7)';
+  controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+  controlText.style.fontSize = '16px';
+  controlText.style.lineHeight = '38px';
+  controlText.style.paddingLeft = '5px';
+  controlText.style.paddingRight = '5px';
+  controlText.innerHTML = 'Toggle Menu';
+  controlUI.appendChild(controlText);
+
+  // Setup the click event listener
+  controlUI.addEventListener('click', function() {
+    console.log('clicked')
+    event.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+  });
 };
 
 function initMap() {
@@ -38,21 +75,26 @@ function initMap() {
     disableDefaultUI: true,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   });
+  var menuToggleDiv = document.createElement('div');
+  var menuControl = new ToggleMenu(menuToggleDiv, map);
 
-   var pos = cityLoc;
+  menuToggleDiv.index = 1;
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(menuToggleDiv);
 
-   placeMarker();
-   autoComplete();
-   styleMap();
-   getEvents();
+  var pos = cityLoc;
 
-   var geocoder = new google.maps.Geocoder();
+  placeMarker();
+  autoComplete();
+  styleMap();
+  getEvents();
 
-   document.getElementById('submit').addEventListener('click', function() {
-    event.preventDefault();
-    var address = document.getElementById('address').value;
-     geocodeAddress(address, geocoder, map);
-   });
+  var geocoder = new google.maps.Geocoder();
+
+  document.getElementById('submit').addEventListener('click', function() {
+  event.preventDefault();
+  var address = document.getElementById('address').value;
+   geocodeAddress(address, geocoder, map);
+  });
 };
 
 function geocodeAddress(address, geocoder) {
