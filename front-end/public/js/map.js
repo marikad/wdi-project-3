@@ -10,12 +10,6 @@ $("#city-form").on("click", function() {
   var city = $("#city-search").val();
 });
 
-$(".hide-menu-link").on("click", function() {
-  event.preventDefault();
-  console.log('clicked')
-  $("#wrapper").toggleClass("toggled");
-});
-
 function getEvents() {
   $.ajax({
     method: 'GET',
