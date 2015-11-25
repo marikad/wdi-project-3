@@ -1,7 +1,7 @@
 var markers = [];
 var map;
 var bounds;
-var infoWindow;
+var infowindow = null;
 var city = 'London';
 var cityLoc = {lat: 51.507351, lng: -0.127758};
 
@@ -107,12 +107,21 @@ function geocodeAddress(eventObj, geocoder) {
   });
 };
 
-
 function placeMarker(pos, eventObj){
   var marker = new google.maps.Marker({
     position: pos,
     map: map,
+    icon: "../public/assets/map-marker-neon-green.png "
   });
+
+  // google.maps.event.addListener(marker, 'click', function() {
+  //   content: contentString
+  //   var infowindow = new google.maps.InfoWindow();
+  //           infowindow.open(map, marker);
+
+  //        });
+
+
 
   var contentString = '<div id="content">'+
       '<div id="siteNotice">'+
@@ -125,17 +134,19 @@ function placeMarker(pos, eventObj){
       '</div>'+
       '</div>';
 
-  var infowindow = new google.maps.InfoWindow({
-    content: contentString
-  });
+      var infoWindow = new google.maps.InfoWindow({
+        content: contentString
+      });                                            
+
+  
 
   marker.addListener('click', function() {
-     infowindow.open(map, marker);
+      infoWindow.open(map, marker);
    });
 
-  google.maps.event.addListener( map, "click", function(event) {
-      infowindow.close();
-  });
+   google.maps.event.addListener( map, "click", function(event) {
+       infoWindow.close();
+   });
 };
 
 
@@ -155,6 +166,8 @@ function autoComplete(){
     };
   });
 };
+
+
 
 function styleMap(){
   var customMapType = new google.maps.StyledMapType([
