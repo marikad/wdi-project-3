@@ -18,5 +18,6 @@ function newEvent(req,res) {
 };
 
 module.exports = {
-  allEvents: allEvents
+  allEvents: allEvents,
+  newEvent: newEvent
 };
