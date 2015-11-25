@@ -62,7 +62,6 @@ function ToggleMenu(menuToggleDiv, map) {
 };
 
 function initMap() {
-  console.log(cityLoc)
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 10,
     center: cityLoc,
@@ -90,7 +89,8 @@ function initMap() {
       description: document.getElementById('event-description').value,
       location: document.getElementById('event-location').value,
       date: document.getElementById('event-date').value,
-      time: document.getElementById('event-time').value
+      time: document.getElementById('event-time').value,
+      category: document.getElementById('event-category').value
     };
       geocodeAddress(eventObj, geocoder);
 
@@ -122,16 +122,9 @@ function placeMarker(pos, eventObj){
   var marker = new google.maps.Marker({
     position: pos,
     map: map,
+    animation: google.maps.Animation.DROP,
     icon: "../public/assets/map-marker-neon-green.png "
   });
-
-  // google.maps.event.addListener(marker, 'click', function() {
-  //   content: contentString
-  //   var infowindow = new google.maps.InfoWindow();
-  //           infowindow.open(map, marker);
-
-  //        });
-
 
 
   var contentString = '<div id="content">'+
@@ -148,8 +141,6 @@ function placeMarker(pos, eventObj){
       var infoWindow = new google.maps.InfoWindow({
         content: contentString
       });                                            
-
-  
 
   marker.addListener('click', function() {
       infoWindow.open(map, marker);
