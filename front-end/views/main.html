@@ -17,9 +17,7 @@
       <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
           <li class="sidebar-brand">
-            <a href="/">
-              HackJammer
-            </a>
+            <img src="../public/assets/logo-full-width-white-on-trans.png" class="img-responsive">
           </li>
           <li>
             <hr><a href="#" class="hide-menu-link">Hide Menu</a><hr>
@@ -30,21 +28,24 @@
                 <li>
                   <input type="text" class="form-control" placeholder="Go to City" id="city-search">
                 </li>
-                <li>
+                <!-- <li>
                   <br><input type="text" class="form-control" placeholder="Add Address (DEBUG)" id="address">
                   <button type="submit" class="btn btn-default" id="submit">Add!</button>
-                </li>
+                </li> -->
               </div>
             </form>
           </li>
           <li>
-            <hr><a href="#">Login</a>
+            <hr><a href="#" class="add-event-link" data-toggle="modal" data-target="#addEvent">Add new Event</a>
           </li>
-          <li>
+          <li class="login-menu-link">
+            <a href="#">Login</a>
+          </li>
+          <li class="logout-menu-link">
             <a href="#">Logout</a>
           </li>
           <li>
-            <a href="#">About</a>
+            <a href="#" class="about-menu-link">About</a>
           </li>
         </ul>
       </div>
@@ -52,12 +53,60 @@
     </div>
     <!-- /#wrapper -->
 
+    <!-- Modal -->
+    <div class="modal fade" id="addEvent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Add a new Event</h4>
+          </div>
+          <div class="modal-body">
+            <form class="newEvent" method="post" action="/events/new">
+              <div class="form-group">
+                <label for="event-title">Event title</label>
+                <input type="text" name="title" id="event-title" class="form-control" placeholder="Event Title">
+              </div>
+              <div class="form-group">
+                <label for="event-description">Description</label>
+                <input type="text" name="description" id="event-description" class="form-control"  placeholder="Description">
+              </div>
+              <div class="form-group">
+                <label for="event-location">Location</label>
+                <input type="text" name="location" id="event-location" class="form-control"  placeholder="Location (e.g: postcode or address and city)">
+              </div>
+              <div class="form-group">
+                <label for="event-category">Category (select all that apply)</label><br>
+                <input type="checkbox" name="javascript" id="event-category-js" value="js"> Javascript<br>
+                <input type="checkbox" name="ruby" id="event-category-ruby" value="ruby"> Ruby<br>
+                <input type="checkbox" name="meetup" id="event-category-meetup" value="meetup"> Meetup<br>
+                <input type="checkbox" name="hackathon" id="event-category-hackathon" value="hackathon"> Hackathon
+              </div>
+              <div class="form-group">
+                <label for="event-date">Date</label>
+                <input type="date" name="date" id="event-date" class="form-control"  placeholder="Date">
+              </div>
+              <div class="form-group">
+                <label for="event-time">Start Time</label>
+                <input type="time" name="time" id="event-time" class="form-control"  placeholder="Time">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="sumit" class="btn btn-primary" id="event-submit" data-dismiss="modal">Save Event</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div id="map"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="../public/js/bootstrap.min.js"></script>
     <script src="../public/js/map.js"></script>
     <script src="../public/js/cities.js"></script>
+    <script src="../public/js/main.js"></script>
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAD3gpGk065Fu34ylIkVtqYEJ7nf0zEPh0&signed_in=true&libraries=places&callback=initMap" async defer>
     </script>
