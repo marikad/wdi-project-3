@@ -20,7 +20,7 @@ request(url, function (err, res, body) {
     var events = data.events.event;
     
     for (i in events) {
-      if (events[i].country_name == 'United Kingdom') {
+      if (events[i]) {
         console.log("Event title: " + events[i].title + " Location: " + events[i].city_name + " Venue: " + events[i].venue_address)
 
         var newEvent = new Event();
