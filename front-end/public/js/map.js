@@ -92,7 +92,18 @@ function initMap() {
       date: document.getElementById('event-date').value,
       time: document.getElementById('event-time').value
     };
-     geocodeAddress(eventObj, geocoder);
+      geocodeAddress(eventObj, geocoder);
+
+      $.ajax({
+    		method: 'post',
+    		url: 'http://localhost:3000/api/events/new',
+    		data: eventObj,
+    		beforeSend: setRequestHeader,
+    	}).done(function(data) {
+    		return console.log('New event added to database!');
+    	}).fail(function(data){
+    		displayErrors(data.responseJSON.message);
+    	});
   });
 };
 
@@ -137,9 +148,6 @@ function placeMarker(pos, eventObj){
       infowindow.close();
   });
 };
-
-
-
 
 function autoComplete(){
   var autoComplete = new google.maps.places.Autocomplete(
