@@ -8,7 +8,7 @@ function start() {
   });
   // Add logic to call submitForm when login or register
   $(".logout-menu-link").on("click", logout);
-  $(".login-menu-link").on("click", login);
+  // $(".login-menu-link").on("click", login);
   checkLoginState();
 };
 

@@ -24,8 +24,8 @@ function getEvents() {
 function seedPins(data) {
   var geocoder = new google.maps.Geocoder();
   $.each(data.events, function(index, event) {
-    var address = event.location;
-    geocodeAddress(address, geocoder);
+    console.log(event)
+    geocodeAddress(event, geocoder);
   });
 };
 
