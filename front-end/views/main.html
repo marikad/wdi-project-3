@@ -36,13 +36,13 @@
             </form>
           </li>
           <li>
-            <hr><a href="#" class="add-event-link">Add new Event</a>
+            <hr><a href="#" class="add-event-link" data-toggle="modal" data-target="#myModal">Add new Event</a>
           </li>
-          <li>
-            <a href="#" class="login-menu-link">Login</a>
+          <li class="login-menu-link">
+            <a href="#">Login</a>
           </li>
-          <li>
-            <a href="#" class="logout-menu-link">Logout</a>
+          <li class="logout-menu-link">
+            <a href="#">Logout</a>
           </li>
           <li>
             <a href="#" class="about-menu-link">About</a>
@@ -52,6 +52,25 @@
       <!-- /#sidebar-wrapper -->
     </div>
     <!-- /#wrapper -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div id="map"></div>
 

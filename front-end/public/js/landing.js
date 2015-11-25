@@ -48,11 +48,11 @@ function logout() {
 	$(".alert-success").text('Logged out successfully').removeClass("hide").addClass("show");
   removeToken();
   return checkLoginState();
-}
+};
 
 function removeToken() {
   return localStorage.clear();
-}
+};
 
 function getToken(){
 	return localStorage.getItem("token");
