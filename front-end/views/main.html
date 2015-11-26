@@ -73,11 +73,10 @@
                 <input type="text" name="location" id="event-location" class="form-control"  placeholder="Location (e.g: postcode or address and city)">
               </div>
               <div class="form-group">
-                <label for="event-category">Category (select all that apply)</label><br>
-                <input type="checkbox" name="javascript" id="event-category-js" value="js"> Javascript<br>
-                <input type="checkbox" name="ruby" id="event-category-ruby" value="ruby"> Ruby<br>
-                <input type="checkbox" name="meetup" id="event-category-meetup" value="meetup"> Meetup<br>
-                <input type="checkbox" name="hackathon" id="event-category-hackathon" value="hackathon"> Hackathon
+                <label for="event-category">Category</label><br>
+                <input type="radio" name="category" id="event-category-js" value="js" checked> Javascript<br>
+                <input type="radio" name="category" id="event-category-python" value="ruby"> Python<br>
+                <input type="radio" name="category" id="event-category-hackathon" value="hackathon"> Hackathon
               </div>
               <div class="form-group">
                 <label for="event-date">Date</label>
@@ -125,7 +124,7 @@
                       <label for="login-password">Password</label>
                       <input type="password" name="password" id="login-password" class="form-control"  placeholder="Password">
                     </div>
-                    <br><button type="submit" class="btn btn-default" data-dismiss="modal">Submit</button>
+                    <br><button type="submit" class="btn btn-default">Submit</button>
                   </form>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="register-tab">
@@ -138,7 +137,7 @@
                       <label for="register-password">Password</label>
                       <input type="password" name="password" id="register-password" class="form-control" placeholder="Password">
                     </div>
-                    <button type="submit" class="btn btn-default" data-dismiss="modal">Submit</button>
+                    <button type="submit" class="btn btn-default">Submit</button>
                   </form>
                 </div>
                 <div class="modal-footer">
