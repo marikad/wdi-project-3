@@ -5,6 +5,9 @@ var infowindow = null;
 var city = 'London';
 var cityLoc = {lat: 51.507351, lng: -0.127758};
 
+
+iconImage();
+
 $("#city-form").on("click", function() {
   event.preventDefault();
   var city = $("#city-search").val();
@@ -90,7 +93,7 @@ function initMap() {
       location: document.getElementById('event-location').value,
       date: document.getElementById('event-date').value,
       time: document.getElementById('event-time').value,
-      category: document.getElementById('event-category').value
+      // category: document.getElementById('event-category').value
     };
       geocodeAddress(eventObj, geocoder);
 
@@ -117,14 +120,28 @@ function geocodeAddress(eventObj, geocoder) {
     };
   });
 };
+  function iconImage(){
+    var clickedCheckId = $('input[type=checkbox]').attr("id");
+    if (clickedCheckId === 'event-category-js') {
+        return "../public/assets/javascript.png";
+          }
+          else if(clickedCheckId === 'event-category-ruby') {
+          return "../public/assets/ruby.png";
+            } else {
+           return "../public/assets/map-marker-neon-green.png";
+          }
+      };
+  
 
 function placeMarker(pos, eventObj){
   var marker = new google.maps.Marker({
     position: pos,
     map: map,
     animation: google.maps.Animation.DROP,
-    icon: "../public/assets/map-marker-neon-green.png "
+    icon: iconImage()
   });
+
+
 
 
   var contentString = '<div id="content">'+
