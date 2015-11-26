@@ -145,7 +145,7 @@ function placeMarker(pos, eventObj){
     position: pos,
     map: map,
     animation: google.maps.Animation.DROP,
-    icon: markerImages[iconImage]
+    icon: '../public/assets/map-marker-neon-green.png'
   });
 
   google.maps.event.addListener(marker, "click", function(event) {
