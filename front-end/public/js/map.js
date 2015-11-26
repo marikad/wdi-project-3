@@ -145,8 +145,8 @@ function placeMarker(pos, eventObj){
       '</div>'+
       '<h1 id="firstHeading" class="firstHeading">' + eventObj.title + '</h1>'+
       '<div id="bodyContent">'+
+      '<img src="'+ eventObj.image +'">'+
       '<p>' + eventObj.description + '</p>'+
-      '<img src="'+ eventObj.image +'">' +
       '<p><strong>Date:</strong> ' + eventObj.date + '</p>'+
       '<p><strong>Start Time:</strong> ' + eventObj.time + '</p>'+
       '<p><strong>Category:</strong> ' + eventObj.category + '</p>'+
