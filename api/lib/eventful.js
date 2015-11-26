@@ -40,7 +40,7 @@ var q = async.queue(function (task, done) {
           }
           catch(err) {
             // console.log(err);
-            newEvent.image      = '/public/images/template.png'
+            newEvent.image      = 'http://www.fillmurray.com/200/200'
           }
 
           newEvent.description  = events[n].description;
