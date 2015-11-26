@@ -33,6 +33,16 @@ var q = async.queue(function (task, done) {
           var newEvent          = new Event();
           newEvent.title        = events[n].title;
           newEvent.city         = events[n].city_name;
+
+          try {
+            newEvent.image      = events[n].image.medium.url
+            // console.log('SUCCESSFULLY ADDED: ' + newEvent.image)
+          }
+          catch(err) {
+            // console.log(err);
+            newEvent.image      = '/public/images/template.png'
+          }
+
           newEvent.description  = events[n].description;
           newEvent.location     = (events[n].venue_address + ", " + events[n].city_name);
           newEvent.date         = events[n].start_time;
@@ -51,8 +61,3 @@ var q = async.queue(function (task, done) {
 for (var k = 0; k < urls.length; k++) {
   q.push({ url: urls[k]});
 };
-
-// BUG: Request does not act on each loop, instead it waits for the for loop to complete every iteration, and then executes urls.length - 1 times the last entry in urls.
-
-// http://stackoverflow.com/questions/24710989/how-do-i-make-http-requests-inside-a-loop-in-nodejs
-
