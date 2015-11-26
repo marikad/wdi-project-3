@@ -88,14 +88,23 @@ function initMap() {
 
   document.getElementById('event-submit').addEventListener('click', function() {
     event.preventDefault();
+
+    var elements = document.getElementsByName('category');
+    var category = 'none';
+    for (var i = 0; i < elements.length; i++) {
+      if (elements[i].checked) category = elements[i].value;
+    };
+
     var eventObj = {
       title: document.getElementById('event-title').value,
       description: document.getElementById('event-description').value,
       location: document.getElementById('event-location').value,
       date: document.getElementById('event-date').value,
       time: document.getElementById('event-time').value,
-      category: document.getElementById('event-category').value
+      category: category,
+      image: document.getElementById('event-image').value
     };
+      console.log('SENDING: ' + eventObj.category + eventObj.image);
       geocodeAddress(eventObj, geocoder);
 
       $.ajax({
