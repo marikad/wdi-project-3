@@ -10,8 +10,6 @@ var markerImages = {
   "Hackathon": "../public/assets/map-marker-neon-green.png",
   undefined:"../public/assets/map-marker-neon-green.png"
 }
-
-
 // iconImage();
 
 $("#city-form").on("click", function() {
@@ -155,29 +153,12 @@ function placeMarker(pos, eventObj){
     markerClick(marker, eventObj);
   });
 
-  var contentString = '<div id="content">'+
-      '<div id="siteNotice">'+
-      '</div>'+
-      '<h1 id="firstHeading" class="firstHeading">' + eventObj.title + '</h1>'+
-      '<div id="bodyContent">'+
-      '<img src="'+ eventObj.image +'">'+
-      '<p>' + eventObj.description + '</p>'+
-      '<p><strong>Date:</strong> ' + eventObj.date + '</p>'+
-      '<p><strong>Start Time:</strong> ' + eventObj.time + '</p>'+
-      '<p><strong>Category:</strong> ' + eventObj.category + '</p>'+
-      '</div>'+
-      '</div>';
-
-      var infoWindow = new google.maps.InfoWindow({
-        content: contentString
-      });
-
   marker.addListener('click', function() {
-      infoWindow.open(map, marker);
-   });
+    infoWindow.open(map, marker);
+  });
 
    google.maps.event.addListener( map, "click", function(event) {
-       infoWindow.close();
+     infoWindow.close();
    });
 };
 
@@ -191,9 +172,11 @@ function markerClick(marker, eventObj){
   '</div>'+
   '<h1 id="firstHeading" class="firstHeading">' + eventObj.title + '</h1>'+
   '<div id="bodyContent">'+
+  '<img src="' + eventObj.image + '">'+
   '<p>' + eventObj.description + '</p>'+
   '<p><strong>Date:</strong> ' + eventObj.date + '</p>'+
   '<p><strong>Start Time:</strong> ' + eventObj.time + '</p>'+
+  '<p><strong>Category:</strong> ' + eventObj.category + '</p>'+
   '</div>'+
   '</div>';
 
@@ -203,13 +186,13 @@ function markerClick(marker, eventObj){
 
   window.map.setCenter(marker.getPosition());
   infowindow.open(map, marker);
-}
+};
 
 function autoComplete(){
   var autoComplete = new google.maps.places.Autocomplete(
     document.getElementById("city-search"), {
-      types: ['(cities)']
-    });
+    types: ['(cities)']
+  });
 
   google.maps.event.addListener(autoComplete, 'place_changed', function() {
     var place = autoComplete.getPlace();
@@ -219,8 +202,6 @@ function autoComplete(){
    };
  });
 };
-
-
 
 function styleMap(){
   var customMapType = new google.maps.StyledMapType([
