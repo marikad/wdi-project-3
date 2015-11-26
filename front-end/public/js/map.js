@@ -139,14 +139,17 @@ function geocodeAddress(eventObj, geocoder) {
 };
 
 function placeMarker(pos, eventObj){
-  var iconImage = eventObj.category
+  // var iconImage = eventObj.category;
 
   var marker = new google.maps.Marker({
     position: pos,
     map: map,
     animation: google.maps.Animation.DROP,
-    icon: markerImages[iconImage]
+    icon: '../public/assets/map-marker-neon-green.png',
+    category: eventObj.category
   });
+
+  markers.push(marker);
 
   google.maps.event.addListener(marker, "click", function(event) {
     console.log("CLICKED")

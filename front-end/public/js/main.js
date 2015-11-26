@@ -3,14 +3,34 @@ $(start);
 function start() {
   $(".hide-menu-link").on("click", function() {
     event.preventDefault();
-    console.log('clicked')
     $("#wrapper").toggleClass("toggled");
   });
 
   $(".logout-menu-link").on("click", logout);
   $("form").on("submit", submitForm);
+  $('#filter-form :checkbox').on('click', filterPins);
 
   checkLoginState();
+};
+
+function filterPins() {
+  var category = $(this).context.value;
+
+  var ischecked= $(this).is(':checked');
+  if(ischecked) {
+    for (var i = 0; i < markers.length; i++) {
+      if (markers[i].category == category) {
+        markers[i].setMap(map);
+      };
+    };
+  };
+  if(!ischecked) {
+    for (var i = 0; i < markers.length; i++) {
+      if (markers[i].category == category) {
+        markers[i].setMap(null);
+      };
+    };
+  };
 };
 
 function checkLoginState(){
@@ -53,14 +73,14 @@ function submitForm(){
   	var url = "http://localhost:3000/api" + $(this).attr("action");
   	var data = $(this).serialize();
   	return ajaxRequest(method, url, data, authenticationSuccessful);
-  }
+  };
 };
 
 function authenticationSuccessful(data){
 	if (data.token) {
 		setToken(data.token);
 		$(".alert-success").text(data.message).removeClass("hide").addClass("show");
-	}
+	};
 	return checkLoginState();
 };
 
