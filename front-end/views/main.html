@@ -33,12 +33,14 @@
           </li>
           <li>
             <hr>
-            <div class="form-group">
-              <label for="event-filter">Filter:</label>
-              <input type="checkbox" name="category" id="category-js" value="js" checked> Javascript<br>
-              <input type="checkbox" name="category" id="category-python" value="python" checked> Python<br>
-              <input type="checkbox" name="category" id="category-hackathon" value="hackathon" checked> Hackathon <hr>
-            </div>
+            <form id="filter-form">
+              <div class="form-group">
+                <label for="event-filter">Filter:</label>
+                <input type="checkbox" name="category" id="category-js" value="javascript" checked> Javascript<br>
+                <input type="checkbox" name="category" id="category-python" value="python" checked> Python<br>
+                <input type="checkbox" name="category" id="category-hackathon" value="hackathon" checked> Hackathon <hr>
+              </div>
+            </form>
           </li>
           <li>
             <a href="#" class="add-event-link" data-toggle="modal" data-target="#addEvent">Add new Event</a>
