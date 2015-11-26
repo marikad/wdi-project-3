@@ -8,6 +8,10 @@ var userSchema = new mongoose.Schema({
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true },
     city: { type: String } // For future use
+  }, 
+  github: {
+    id: { type: String },
+    access_token: { type: String }
   }
 });
 

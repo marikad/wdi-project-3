@@ -10,6 +10,8 @@ var passport = require('passport');
 var methodOverride = require("method-override");
 var jwt = require('jsonwebtoken');
 var expressJWT = require('express-jwt');
+var oauthshim      = require('./config/shim');
+var creds          = require("./config/credentials")
 
 // Require relative files
 var config = require('./config/config');
@@ -40,14 +42,21 @@ app.use(methodOverride(function (req, res) {
   };
 }));
 
+// Define a path where to put this OAuth Shim
+app.all('/proxy', oauthshim);
+
+// Initiate the shim with credentials
+oauthshim.init(creds);
+
 // Set app to use JWTs when called though '/api'
 app.use('/api', expressJWT({ secret: secret })
   .unless({
     path: [
       { url: '/api/register', methods: ['POST'] },
       { url: '/api/login', methods: ['POST'] },
-      { url: '/api/auth/github', methods: ['POST'] },
-      { url: '/api/auth/github/callback', methods: ['GET'] },
+      // { url: '/api/auth/github', methods: ['POST'] },
+      // { url: '/api/auth/github/callback', methods: ['GET'] },
+      { url: '/api/github', methods: ['POST']},
       { url: '/api/events', methods: ['GET'] }
     ]
   }));

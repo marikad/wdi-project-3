@@ -6,6 +6,7 @@ function start(){
 	$(".logout-link").on("click", logout);
 
 	$(".login-link").on("click", function(){
+		event.preventDefault();
 		$("#splash").hide();
 		$("#login-register").show();
 	});
