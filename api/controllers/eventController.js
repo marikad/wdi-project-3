@@ -30,7 +30,7 @@ function editEvent(req, res) {
 
 module.exports = {
   allEvents: allEvents,
-  newEvent: newEvent
+  newEvent: newEvent,
   editEvent: editEvent,
   //deleteEvent: deleteEvent
 };
