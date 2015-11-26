@@ -8,13 +8,13 @@ mongoose.connect(config.database);
 
 var token = process.env.EVENTFUL_API_KEY;
 var baseUrl = "http://api.eventful.com/json/events/search?keywords=";
-var keywords = ["hackathon", "javascript", "python"];
+var keywords = ["hackathon", "javascript", "python", "html5", "css"];
 var fetchUrls = [];
 var pageUrls = [];
 
 // Push each keyword URLs into array
 for (var i = 0; i < keywords.length; i++) {
-  var url = baseUrl + keywords[i] + "&app_key=" + token + "&page_number=";
+  var url = baseUrl + keywords[i] + "&l=United+Kingdom&app_key=" + token + "&page_number=";
   pageUrls.push(url);
 };
 
@@ -54,30 +54,29 @@ function populateDB() {
         var keyword         = keywordPartial[1].split("&");
 
         for (n in events) {
-          if (events[n].country_name == 'United Kingdom') {
-            var newEvent          = new Event();
-            newEvent.title        = events[n].title;
-            newEvent.city         = events[n].city_name;
 
-            try {
-              newEvent.image      = events[n].image.medium.url
-              // console.log('SUCCESSFULLY ADDED: ' + newEvent.image)
-            }
-            catch(err) {
-              // console.log(err);
-              newEvent.image      = 'http://www.fillmurray.com/200/200'
-            };
+          var newEvent          = new Event();
+          newEvent.title        = events[n].title;
+          newEvent.city         = events[n].city_name;
 
-            newEvent.description  = events[n].description;
-            newEvent.location     = (events[n].venue_address + ", " + events[n].city_name);
-            newEvent.date         = events[n].start_time;
-            newEvent.category     = keyword[0];
-
-            newEvent.save(function (err, event) {
-              if (err) return res.status(500).json(err);
-              console.log(newEvent.title + " saved. keywords was: " + newEvent.category);
-            });
+          try {
+            newEvent.image      = events[n].image.medium.url
+            // console.log('SUCCESSFULLY ADDED: ' + newEvent.image)
+          }
+          catch(err) {
+            // console.log(err);
+            newEvent.image      = 'http://www.fillmurray.com/200/200'
           };
+
+          newEvent.description  = events[n].description;
+          newEvent.location     = (events[n].venue_address + ", " + events[n].city_name);
+          newEvent.date         = events[n].start_time;
+          newEvent.category     = keyword[0];
+
+          newEvent.save(function (err, event) {
+            if (err) return res.status(500).json(err);
+            console.log(newEvent.title + " saved. keywords was: " + newEvent.category);
+          });
         };
       };
     });
