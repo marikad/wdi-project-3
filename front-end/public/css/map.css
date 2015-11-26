@@ -5,3 +5,15 @@ html, body { height: 100%; margin: 0; padding: 0; }
   padding-left: 20px;
   padding-right: 20px;
 }
+
+.sidebar-nav li label {
+    display: block;
+    text-decoration: none;
+    color: #999999;
+  }
+
+.sidebar-nav .form-group {
+    display: block;
+    text-decoration: none;
+    color: #999999;
+  }

@@ -32,7 +32,16 @@
             </form>
           </li>
           <li>
-            <hr><a href="#" class="add-event-link" data-toggle="modal" data-target="#addEvent">Add new Event</a>
+            <hr>
+            <div class="form-group">
+              <label for="event-filter">Filter:</label>
+              <input type="checkbox" name="category" id="category-js" value="js" checked> Javascript<br>
+              <input type="checkbox" name="category" id="category-python" value="python" checked> Python<br>
+              <input type="checkbox" name="category" id="category-hackathon" value="hackathon" checked> Hackathon <hr>
+            </div>
+          </li>
+          <li>
+            <a href="#" class="add-event-link" data-toggle="modal" data-target="#addEvent">Add new Event</a>
           </li>
           <li class="login-menu-link">
             <a href="#" class="menu-login-link" data-toggle="modal" data-target="#loginModal">Login</a>
