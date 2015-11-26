@@ -5,8 +5,8 @@ var infowindow = null;
 var city = 'London';
 var cityLoc = {lat: 51.507351, lng: -0.127758};
 var markerImages = {
-  "Javascript": "../public/assets/javascript.png",
-  "Python": "../public/assets/python.png",
+  "Javascript": "../public/assets/map-marker-neon-green.png",
+  "Python": "../public/assets/map-marker-neon-green.png",
   "Hackathon": "../public/assets/map-marker-neon-green.png",
   undefined:"../public/assets/map-marker-neon-green.png"
 }
