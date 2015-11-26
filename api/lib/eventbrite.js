@@ -1,3 +1,4 @@
+var async    = require('async');
 var Event    = require('../models/event')
 var request  = require('request');
 var config   = require('../config/config');
@@ -5,40 +6,50 @@ var config   = require('../config/config');
 var mongoose = require("mongoose");
 mongoose.connect(config.database);
 
-var token    = process.env.EVENTBRITE_PERSONAL_OAUTH_TOKEN;
-var base_url = "https://www.eventbriteapi.com/v3/events/search/?q="
-var keywords = "hackathon";
+var token     = process.env.EVENTBRITE_PERSONAL_OAUTH_TOKEN;
+var baseUrl   = "https://www.eventbriteapi.com/v3/events/search/?q="
+var keywords  = ["hackathon", "javascript", "python"];
+var urls      = []
 
-for (var i = 0; i < 5; i++) {
-  var page_number = i
-  var url         = base_url + keywords +"&token=" + token + "&page=" + page_number;
+for (var j = 0; j < keywords.length; j++) {
+  for (var i = 0; i < 5; i++) {
+    var url         = baseUrl + keywords[j] +"&token=" + token + "&page=" + i;
+    urls.push(url);
+  };
+};
 
-  request(url, function (err, res, body) {
+var q = async.queue(function (task, done) {
+  request(task.url, function(err, res, body) {
     if (err) return console.log(err);
     if (res.statusCode == 200) {
-      var data = JSON.parse(body)
+      var data            = JSON.parse(body)
+      var events          = data.events;
+      var keywordPartial  = task.url.split("q=");
+      var keyword         = keywordPartial[1].split("&");
 
-      // console.log(data)
+      for (n in events) {
+        if (events[n].start.timezone == 'Europe/London') {
 
-      var events  = data.events;
-      
-      for (i in events) {
-        if (events[i].start.timezone == 'Europe/London') {
-          console.log("Event title: " + events[i].name.text + " Description: " + events[i].description.text + "Date " + events[i].start.local + " Venue Id" + events[i].venue_id)
+          console.log("Event title: " + events[n].name.text + " Description: " + events[n].description.text + "Date " + events[n].start.local + " Venue Id" + events[n].venue_id)
 
           var newEvent          = new Event();
-          newEvent.title        = events[i].name.text;
-          // newEvent.city = events[i].city_name;
-          newEvent.description  = events[i].description.text;
-          // newEvent.location = events[i].venue_address;
-          newEvent.date         = events[i].start.local;
+          newEvent.title        = events[n].name.text;
+          // newEvent.city         = events[n].city_name;
+          newEvent.description  = events[n].description.text;
+          // newEvent.location     = (events[n].venue_address + ", " + events[n].city_name);
+          newEvent.date         = events[n].start.local;
+          newEvent.category     = keyword[0];
 
           newEvent.save(function (err, event) {
             if (err) return res.status(500).json(err);
-            console.log(newEvent.title + " saved.")
+            console.log(newEvent.title + " saved. keywords was: " + newEvent.category);
           });
         };
       };
     };
   });
-}
+}, urls.length);
+
+for (var k = 0; k < urls.length; k++) {
+  q.push({ url: urls[k]});
+};

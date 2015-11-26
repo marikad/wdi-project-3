@@ -9,16 +9,36 @@ a:hover {
   color: #fff;
 }
 
+/* tabs */
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:hover {
+  color: #91FA2B;
+  background-color: rgba(145, 250, 43, 0);
+}
+
+.nav>li>a:focus,
+.nav>li>a:hover {
+  background-color: rgba(145, 250, 43, 0);
+  border: none;
+  color: #91FA2B;
+}
+
 /* Custom default button */
 .btn-default,
-.btn-default:hover,
 .btn-default:focus {
-  color: #333;
+  color: #fff;
   text-shadow: none; /* Prevent inheritence from `body` */
-  background-color: #fff;
+  background-color: rgba(0,0,0,0);
   border: 1px solid #fff;
 }
 
+.btn-default:hover {
+  color: #91FA2B;
+  text-shadow: none; /* Prevent inheritence from `body` */
+  background-color: rgba(0,0,0,0);
+  border: 1px solid #fff;
+}
 
 /*
  * Base structure
@@ -104,7 +124,6 @@ body {
   }
 }
 
-
 /*
  * Cover
  */
@@ -151,6 +170,15 @@ body {
   .mastfoot,
   .cover-container {
     width: 100%; /* Must be percentage or pixels for horizontal alignment */
+  }
+
+   /*Set the login/register tabs to keep bottom border */
+  .nav>li>a:focus,
+  .nav>li>a:hover {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
   }
 }
 

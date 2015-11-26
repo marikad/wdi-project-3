@@ -27,8 +27,12 @@ function getEvents() {
 function seedPins(data) {
   var geocoder = new google.maps.Geocoder();
   $.each(data.events, function(index, event) {
-    console.log(event)
-    geocodeAddress(event, geocoder);
+    var eventTime = Date.parse(event.date)
+    var now = Date.now()
+
+    if (eventTime > now) {
+      geocodeAddress(event, geocoder);
+    };
   });
 };
 
@@ -157,7 +161,7 @@ function placeMarker(pos, eventObj){
 
       var infoWindow = new google.maps.InfoWindow({
         content: contentString
-      });                                            
+      });
 
   marker.addListener('click', function() {
       infoWindow.open(map, marker);
