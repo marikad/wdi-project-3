@@ -17,12 +17,20 @@ function newEvent(req, res) {
   });
 };
 
-// function editEvent(req, res) {};
+function editEvent(req, res) {
+  var id          = req.params.id;
+  var eventParams = req.body.event;
+
+  Event.findByIdAndUpdate({ _id: id}, eventParams, function(err, event){
+    if (err) return res.status(404).json({ message: 'Something went wrong'});
+    res.status(200).json({ event: event})
+  })
+};
 // function deleteEvent(req, res) {};
 
 module.exports = {
   allEvents: allEvents,
   newEvent: newEvent
-  //editEvent: editEvent,
+  editEvent: editEvent,
   //deleteEvent: deleteEvent
 };
