@@ -8,12 +8,12 @@ mongoose.connect(config.database);
 
 var token     = process.env.EVENTBRITE_PERSONAL_OAUTH_TOKEN;
 var baseUrl   = "https://www.eventbriteapi.com/v3/events/search/?q="
-var keywords  = ["hackathon", "javascript", "python"];
+var keywords  = ["hackathon", "javascript", "python", "html5", "css"];
 var urls      = []
 
 for (var j = 0; j < keywords.length; j++) {
   for (var i = 0; i < 5; i++) {
-    var url         = baseUrl + keywords[j] +"&token=" + token + "&page=" + i;
+    var url         = baseUrl + keywords[j] +"&venue.country=GB&token=" + token + "&page=" + i;
     urls.push(url);
   };
 };
@@ -28,7 +28,7 @@ var q = async.queue(function (task, done) {
       var keyword         = keywordPartial[1].split("&");
 
       for (n in events) {
-        if (events[n].start.timezone == 'Europe/London') {
+
 
           console.log("Event title: " + events[n].name.text + " Description: " + events[n].description.text + "Date " + events[n].start.local + " Venue Id" + events[n].venue_id)
           
@@ -45,7 +45,7 @@ var q = async.queue(function (task, done) {
             if (err) return res.status(500).json(err);
             console.log(newEvent.title + " saved. keywords was: " + newEvent.category);
           });
-        };
+
       };
     };
   });
