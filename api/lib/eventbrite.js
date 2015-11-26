@@ -31,6 +31,7 @@ var q = async.queue(function (task, done) {
         if (events[n].start.timezone == 'Europe/London') {
 
           console.log("Event title: " + events[n].name.text + " Description: " + events[n].description.text + "Date " + events[n].start.local + " Venue Id" + events[n].venue_id)
+          
 
           var newEvent          = new Event();
           newEvent.title        = events[n].name.text;
