@@ -97,26 +97,35 @@ function initMap() {
 
   document.getElementById('event-submit').addEventListener('click', function() {
     event.preventDefault();
+
+    var elements = document.getElementsByName('category');
+    var category = 'none';
+    for (var i = 0; i < elements.length; i++) {
+      if (elements[i].checked) category = elements[i].value;
+    };
+
     var eventObj = {
       title: document.getElementById('event-title').value,
       description: document.getElementById('event-description').value,
       location: document.getElementById('event-location').value,
       date: document.getElementById('event-date').value,
       time: document.getElementById('event-time').value,
-      category: $('input[type="radio"][name="category"]:checked').val()
+      category: category,
+      image: document.getElementById('event-image').value
     };
+
     geocodeAddress(eventObj, geocoder);
 
     $.ajax({
-      method: 'post',
-      url: 'http://localhost:3000/api/events/new',
-      data: eventObj,
-      beforeSend: setRequestHeader,
-    }).done(function(data) {
-      return console.log('New event added to database!');
-    }).fail(function(data){
-      displayErrors(data.responseJSON.message);
-    });
+  		method: 'post',
+  		url: 'http://localhost:3000/api/events/new',
+  		data: eventObj,
+  		beforeSend: setRequestHeader,
+  	}).done(function(data) {
+  		return console.log('New event added to database!');
+  	}).fail(function(data){
+  		displayErrors(data.responseJSON.message);
+  	});
   });
 };
 
@@ -130,39 +139,6 @@ function geocodeAddress(eventObj, geocoder) {
     };
   });
 };
-// function iconImage(bg){
-//   var images = [
-//   "../public/assets/javascript.png",
-//   "../public/assets/python.png",
-//   "../public/assets/map-marker-neon-green.png"
-//   ];
-//   var clickedCheckId = ($("input[type='radio'][name='category']"))
-//     // if ($(clickedCheckId === $("#event-category-js"))){
-//     //      return images[0];
-//     //     }
-//     //    else if($(clickedCheckId === $("#event-category-python"))){
-//     //       return images[1];
-//     //          } else {
-//     //         return images[2];
-//     //       }
-
-
-//     var url;
-//     if(clickedCheckId === "js")
-//     {
-//      return url = images[0]
-//    }
-//    else if(clickedCheckId === "python")
-//    {
-//     return url = images[1];          
-//   } else{
-//    return url = images[2]
-//  }
-
-// };
-
-
-
 
 function placeMarker(pos, eventObj){
   var iconImage = eventObj.category
@@ -179,7 +155,30 @@ function placeMarker(pos, eventObj){
     markerClick(marker, eventObj);
   });
 
-  
+  var contentString = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading">' + eventObj.title + '</h1>'+
+      '<div id="bodyContent">'+
+      '<img src="'+ eventObj.image +'">'+
+      '<p>' + eventObj.description + '</p>'+
+      '<p><strong>Date:</strong> ' + eventObj.date + '</p>'+
+      '<p><strong>Start Time:</strong> ' + eventObj.time + '</p>'+
+      '<p><strong>Category:</strong> ' + eventObj.category + '</p>'+
+      '</div>'+
+      '</div>';
+
+      var infoWindow = new google.maps.InfoWindow({
+        content: contentString
+      });
+
+  marker.addListener('click', function() {
+      infoWindow.open(map, marker);
+   });
+
+   google.maps.event.addListener( map, "click", function(event) {
+       infoWindow.close();
+   });
 };
 
 function markerClick(marker, eventObj){

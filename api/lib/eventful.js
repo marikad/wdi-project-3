@@ -12,12 +12,28 @@ var keywords  = ["hackathon", "javascript", "python"];
 var urls      = []
 
 for (var j = 0; j < keywords.length; j++) {
-  for (var i = 0; i < 19; i++) {
+  var pageUrl = baseUrl + keywords[j] + "&app_key=" + token + "&page_number=1"
+  var pageCount = getPages(pageUrl);
+  console.log("Page Count Step 1");
+
+  for (var i = 0; i < pageCount; i++) {
     var url = baseUrl + keywords[j] + "&app_key=" + token + "&page_number="+ i
     urls.push(url);
   };
 };
 
+console.log("Page Count Step 2");
+function getPages(url) {
+  request(url, function(err, res, pageBody) {
+    if (err) return (err);
+    if (res.statusCode == 200) {
+      var pageData = JSON.parse(pageBody);
+      return pageData.page_count;
+    };
+  });
+};
+
+console.log("Page Count Step 3");
 var q = async.queue(function (task, done) {
   request(task.url, function(err, res, body) {
     if (err) return console.log(err);
@@ -26,6 +42,7 @@ var q = async.queue(function (task, done) {
       var events          = data.events.event;
       var keywordPartial  = task.url.split("keywords=");
       var keyword         = keywordPartial[1].split("&");
+      console.log("Page Count Step 4");
 
       for (n in events) {
         if (events[n].country_name == 'United Kingdom') {
@@ -40,7 +57,7 @@ var q = async.queue(function (task, done) {
           }
           catch(err) {
             // console.log(err);
-            newEvent.image      = '/public/images/template.png'
+            newEvent.image      = 'http://www.fillmurray.com/200/200'
           }
 
           newEvent.description  = events[n].description;
