@@ -140,7 +140,7 @@ function geocodeAddress(eventObj, geocoder) {
 
 function placeMarker(pos, eventObj){
   // var iconImage = eventObj.category;
-
+  // icon: markerImages[eventObj.category]
   var marker = new google.maps.Marker({
     position: pos,
     map: map,

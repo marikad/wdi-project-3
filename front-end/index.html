@@ -8,6 +8,8 @@
     <link href="../public/css/bootstrap.min.css" rel="stylesheet">
     <link rel="icon" href="../public/assets/icon-round-white-on-black.png">
     <link href="../public/css/cover.css" rel="stylesheet">
+    <!-- Social buttons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.10.1/bootstrap-social.min.css">
   </head>
   <body>
     <div class="site-wrapper">
@@ -62,9 +64,12 @@
                     <br><button type="submit" class="btn btn-default">Submit</button>
                   </form>
                   <hr>
-                  <form class="login" method="post" action="/auth/github">
+                  <a class="btn btn-block btn-social btn-github" data-auth="github">
+                    <span class="fa fa-github"></span> Login via GitHub
+                  </a>
+                  <!-- <form class="login" method="post" action="/auth/github">
                     <button type="submit" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="One click login using your GitHub credentials.">Login via GitHub</button>
-                  </form>
+                  </form> -->
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="register-tab">
                   <form class="register" method="post" action="/register">
@@ -80,9 +85,9 @@
                   </form>
                   <hr>
                   <a class="btn btn-block btn-social btn-github" data-auth="github">
-                    <span class="fa fa-github"></span> **Sign in with Github
+                    <span class="fa fa-github"></span> Login via GitHub
                   </a>
-                  <!-- <form class="login" method="post" action="/auth/github">
+                <!--   <form class="login" method="post" action="/auth/github">
                     <br><button type="submit" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="One click login using your GitHub credentials.">Login via GitHub</button>
                   </form> -->
                 </div>
