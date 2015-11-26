@@ -4,22 +4,10 @@ function start(){
 	$("form").on("submit", submitForm);
 	$("landing-link").on("click", splashView);
 	$(".logout-link").on("click", logout);
-	// $().alert('close')
 
 	$(".login-link").on("click", function(){
 		$("#splash").hide();
 		$("#login-register").show();
-		$("#login").show();
-	});
-
-	$(".login-tab").on("click", function(){
-		$("#login").show();
-		$("#register").hide();
-	});
-
-	$(".register-tab").on("click", function(){
-		$("#login").hide();
-		$("#register").show();
 	});
 
 	splashView();

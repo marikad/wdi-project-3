@@ -8,7 +8,7 @@ function allEvents(req, res) {
    });
 };
 
-function newEvent(req,res) {
+function newEvent(req, res) {
   var event = new Event(req.body);
 
   event.save(function (err) {
@@ -17,7 +17,12 @@ function newEvent(req,res) {
   });
 };
 
+// function editEvent(req, res) {};
+// function deleteEvent(req, res) {};
+
 module.exports = {
   allEvents: allEvents,
   newEvent: newEvent
+  //editEvent: editEvent,
+  //deleteEvent: deleteEvent
 };

@@ -18,5 +18,7 @@ router.get('/auth/github/callback', passport.authenticate('github', { failureRed
 // Front-end routes
 router.get('/events', eventController.allEvents);
 router.post('/events/new', eventController.newEvent);
+//router.post('/events/edit', eventController.editEvent);
+//router.post('/events/delete', eventController.deleteEvent);
 
 module.exports = router;
