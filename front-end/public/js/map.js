@@ -157,7 +157,7 @@ function placeMarker(pos, eventObj){
     infoWindow.open(map, marker);
   });
 
-   google.maps.event.addListener( map, "click", function(event) {
+   google.maps.event.addListener(map, "click", function(event) {
      infoWindow.close();
    });
 };
@@ -177,6 +177,7 @@ function markerClick(marker, eventObj){
   '<p><strong>Date:</strong> ' + eventObj.date + '</p>'+
   '<p><strong>Start Time:</strong> ' + eventObj.time + '</p>'+
   '<p><strong>Category:</strong> ' + eventObj.category + '</p>'+
+  "<button>Edit</button>" +
   '</div>'+
   '</div>';
 
@@ -184,7 +185,7 @@ function markerClick(marker, eventObj){
    content: contentString
  });
 
-  window.map.setCenter(marker.getPosition());
+  map.setCenter(marker.getPosition());
   infowindow.open(map, marker);
 };
 
