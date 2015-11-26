@@ -6,9 +6,10 @@ function start() {
     console.log('clicked')
     $("#wrapper").toggleClass("toggled");
   });
-  // Add logic to call submitForm when login or register
+
   $(".logout-menu-link").on("click", logout);
-  // $(".login-menu-link").on("click", login);
+  $("form").on("submit", submitForm);
+
   checkLoginState();
 };
 
@@ -16,10 +17,12 @@ function checkLoginState(){
 	if (getToken()){
 		$(".login-menu-link").hide();
 		$(".logout-menu-link").show();
+    $(".add-event-link").show();
 		return console.log('User logged in!');
 	} else {
 		$(".login-menu-link").show();
 		$(".logout-menu-link").hide();
+		$(".add-event-link").hide();
 		return console.log('User logged out');
 	};
 };
@@ -43,18 +46,20 @@ function setToken(token){
 };
 
 function submitForm(){
-	event.preventDefault();
-	var method = $(this).attr("method");
-	var url = "http://localhost:3000/api" + $(this).attr("action");
-	var data = $(this).serialize();
-	return ajaxRequest(method, url, data, authenticationSuccessful);
+  event.preventDefault();
+
+  if ($(this).attr('class') == 'login' || $(this).attr('class') == 'register') {
+  	var method = $(this).attr("method");
+  	var url = "http://localhost:3000/api" + $(this).attr("action");
+  	var data = $(this).serialize();
+  	return ajaxRequest(method, url, data, authenticationSuccessful);
+  }
 };
 
 function authenticationSuccessful(data){
 	if (data.token) {
 		setToken(data.token);
 		$(".alert-success").text(data.message).removeClass("hide").addClass("show");
-		splashView();
 	}
 	return checkLoginState();
 };
