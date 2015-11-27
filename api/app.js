@@ -20,7 +20,8 @@ var secret = require('./config/config').secret; // Set up secret used by JWT
 require('./config/passport')(passport);
 
 // Hook into mongoDB via mongoose
-mongoose.connect(config.database);
+var databaseUrl = process.env.MONGOLAB_URI;
+mongoose.connect(databaseUrl);
 
 // Create App
 var app = express();
