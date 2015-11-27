@@ -130,7 +130,18 @@ function github(req, res, next){
       if (err) return res.status(500).json({ message: 'Something went wrong. ', err });
 
       // Return existing user
-      if (user) return returnJWT(req, res, user);
+      if (user) {
+        var userJwt = {
+          user_id: user._id
+        };
+        var token = jwt.sign(userJwt, secret, { expiresIn: 60*60*48 });
+        return res.status(200).json({
+          success: true,
+          message: 'Welcome!',
+          token: token,
+          user: userJwt
+        });
+      };
 
       // Create new user
       var newUser = new User();
@@ -143,7 +154,16 @@ function github(req, res, next){
 
       return newUser.save(function(err, user) {
         if (err) return res.status(500).json({ message: 'Something went wrong.' });
-        return returnJWT(req, res, user);
+        var userJwt = {
+          user_id: user._id
+        };
+        var token = jwt.sign(userJwt, secret, { expiresIn: 60*60*48 });
+        return res.status(200).json({
+          success: true,
+          message: 'Welcome!',
+          token: token,
+          user: userJwt
+        });
       });
     });
   };
