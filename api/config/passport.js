@@ -1,12 +1,7 @@
 var LocalStrategy = require('passport-local').Strategy;
-var GitHubStrategy = require('passport-github2').Strategy;
 var User = require('../models/user');
 
-var GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
-var GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
-
 module.exports = function (passport) {
-
   passport.use('local-register', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',
@@ -31,15 +26,4 @@ module.exports = function (passport) {
       });
     });
   }));
-
-  passport.use(new GitHubStrategy({
-    clientID: GITHUB_CLIENT_ID,
-    clientSecret: GITHUB_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/github/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate({ githubId: profile.id }, function (err, user) {
-      return done(err, user);
-    });
-  }
-))};
+};

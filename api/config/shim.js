@@ -1,5 +1,5 @@
 var oauthshim = require('oauth-shim');
-var url       = require('url');
+var url = require('url');
 
 oauthshim.listen = function(server, requestPathname) {
 
@@ -15,13 +15,13 @@ oauthshim.listen = function(server, requestPathname) {
       oldListeners.forEach(function(handler) {
         handler.call(server, req, res);
       });
-    }
+    };
 
     // If the request is limited to a given path, here it is.
     if (requestPathname && requestPathname !== url.parse(req.url).pathname) {
       passthru();
       return;
-    }
+    };
 
     oauthshim.request(req, res);
   });
